@@ -9,7 +9,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -81,8 +81,8 @@
       const y = useMotionValue(0);
       const mouseXSpring = useSpring(x);
       const mouseYSpring = useSpring(y);
-      const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["7.5deg", "-7.5deg"]);
-      const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-7.5deg", "7.5deg"]);
+      const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
+      const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
 
       const handleMouseMove = (e) => {
         const rect = e.target.getBoundingClientRect();
@@ -170,69 +170,24 @@
     };
 
     /* =================================================================
-       ORIGINAL HERO SECTION (Restored)
+       STANDALONE NAVBAR
        ================================================================= */
-    const HeroSection = ({ onContactClick }) => (
-      <section className="min-h-screen flex flex-col relative overflow-hidden bg-base">
-        <div className="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] bg-brand/20 blur-[150px] rounded-full pointer-events-none"></div>
-
-        <nav className="flex justify-between items-center px-8 pt-8 z-20 w-full max-w-7xl mx-auto">
-          <div className="font-display font-bold text-xl tracking-tighter text-dark">DIGIGENIE.</div>
-          <div className="hidden md:flex gap-8 text-sm uppercase tracking-widest font-semibold">
-            <a href="#about" className="text-dark/80 hover:text-dark transition-colors">About</a>
-            <a href="#services" className="text-dark/80 hover:text-dark transition-colors">Services</a>
-            <a href="#projects" className="text-dark/80 hover:text-dark transition-colors">Projects</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); onContactClick(); }} className="text-dark/80 hover:text-dark transition-colors">Contact</a>
+    const Navbar = ({ onContactClick }) => (
+      <div className="w-full pt-10 pb-12 z-50">
+        <nav className="flex justify-between items-center px-8 md:px-16 w-full max-w-[1600px] mx-auto relative">
+          <div className="font-display font-black text-[28px] tracking-tight text-[#1a1a1a] uppercase">DIGIGENIE.</div>
+          <div className="hidden md:flex gap-10 text-[14px] font-semibold text-[#1a1a1a] uppercase tracking-[0.15em]">
+            <a href="#about" className="hover:text-brand transition-colors">About</a>
+            <a href="#services" className="hover:text-brand transition-colors">Services</a>
+            <a href="#projects" className="hover:text-brand transition-colors">Projects</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); onContactClick(); }} className="hover:text-brand transition-colors">Contact</a>
           </div>
         </nav>
-
-        <div className="flex-1 flex flex-col md:flex-row items-center justify-between px-8 lg:px-20 z-10 max-w-7xl mx-auto w-full">
-          {/* Left Text Side */}
-          <div className="flex-1 flex flex-col justify-center mt-20 md:mt-0 relative z-20">
-            <FadeIn delay={0.4}>
-              <h1 className="font-display font-black leading-[0.9] tracking-tighter uppercase text-dark" style={{ fontSize: 'clamp(4rem, 10vw, 130px)' }}>
-                We Build<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-dark to-dark/50">The Future.</span>
-              </h1>
-            </FadeIn>
-            
-            <div className="mt-12 flex items-center gap-6">
-              <FadeIn delay={0.6}>
-                <Magnet>
-                  <button onClick={onContactClick} className="bg-dark text-white hover:bg-brand hover:text-dark px-8 py-4 rounded-full font-bold uppercase tracking-widest shadow-xl hover:scale-105 transition-all duration-300">
-                    Start Project
-                  </button>
-                </Magnet>
-              </FadeIn>
-            </div>
-          </div>
-
-          {/* Right Video Side */}
-          <FadeIn delay={0.5} className="flex-1 flex justify-center items-center mt-16 md:mt-0 relative z-10">
-            <Magnet strength={0.2}>
-              <motion.div 
-                animate={{ y: [-10, 10, -10] }}
-                transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-                className="relative rounded-[40px] overflow-hidden border border-black/5 shadow-2xl group w-[300px] sm:w-[400px] md:w-[450px] aspect-square bg-white"
-              >
-                <video 
-                  autoPlay 
-                  loop 
-                  muted 
-                  playsInline 
-                  className="w-full h-full object-cover pointer-events-none"
-                >
-                  <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260603_132049_036591b8-6e92-4760-b94c-a7ea6eef315c.mp4" type="video/mp4" />
-                </video>
-              </motion.div>
-            </Magnet>
-          </FadeIn>
-        </div>
-      </section>
+      </div>
     );
 
     /* =================================================================
-       NEW MODERN ABOUT & SERVICES SECTION
+       MODERN ABOUT & SERVICES SECTION
        ================================================================= */
     const ModernAboutSection = () => {
       const offerings = [
@@ -246,24 +201,145 @@
       ];
 
       return (
-        <section id="about" className="py-32 px-5 lg:px-20 bg-surface border-t border-black/5 rounded-t-[40px] relative overflow-hidden">
-          <div className="max-w-6xl mx-auto relative z-10">
+        <section id="about" className="pb-32 px-5 lg:px-20 relative z-10">
+          <div className="max-w-[1600px] mx-auto">
             
-            {/* Introduction Part */}
-            <div className="mb-24 text-center md:text-left flex flex-col md:flex-row gap-12 items-center">
-              <div className="flex-1">
+            {/* Introduction Part (Split into 2 columns for large screens) */}
+            <div className="mb-32 flex flex-col lg:flex-row gap-12 items-center justify-between">
+              
+              {/* Left side: Exact Same Text Structure */}
+              <div className="w-full lg:w-[55%] text-center md:text-left relative z-20">
                 <FadeIn>
-                  <h2 className="font-display font-black text-4xl md:text-6xl text-dark mb-6 leading-tight">
-                     HI, I'M GURSIMAR SINGH
-                    <h2>WEB DESIGNER & DEVELOPER</h2>
+                  <h1 className="font-display font-black text-5xl md:text-7xl text-dark mb-2 leading-none uppercase tracking-tighter">
+                    Hi, I'm Gursimar Singh
+                  </h1>
+                  <h2 className="font-display font-black text-3xl md:text-5xl text-dark/70 mb-6 leading-tight uppercase tracking-tight">
+                    Web Designer & Developer
                   </h2>
                 </FadeIn>
                 <FadeIn delay={0.2}>
-                  <p className="text-lg md:text-xl text-dark/80 font-medium leading-relaxed">
+                  <p className="text-lg md:text-xl text-dark/80 font-medium leading-relaxed max-w-4xl">
                     Passionate about helping businesses establish a strong online presence. I specialize in creating modern, responsive, and user-friendly websites that look great on all devices. Whether you need a business website, portfolio, landing page, restaurant website, or a complete redesign, I can help turn your ideas into reality.
                   </p>
                 </FadeIn>
               </div>
+
+              {/* Right side: Modern 3D Floating Glass Ecosystem with New Boxes */}
+              <div className="w-full lg:w-[45%] h-[500px] relative hidden lg:flex items-center justify-center perspective-[1000px] z-10">
+                
+                {/* Background Glowing Sphere */}
+                <div className="absolute w-[300px] h-[300px] bg-brand/40 blur-[100px] rounded-full"></div>
+
+                <TiltCard className="w-full h-full flex items-center justify-center relative">
+                  
+                  {/* MAIN CENTER FROSTED GLASS PLATE (Now with content) */}
+                  <motion.div
+                    animate={{ y: [-10, 10, -10], rotateZ: [-2, 2, -2] }}
+                    transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+                    className="absolute w-[280px] h-[380px] bg-white/50 backdrop-blur-3xl rounded-[40px] border border-white/80 shadow-[0_30px_60px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col items-center justify-center p-6 text-center"
+                    style={{ transformStyle: "preserve-3d" }}
+                  >
+                    <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/60 to-transparent pointer-events-none"></div>
+                    <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-brand/30 blur-2xl rounded-full"></div>
+                    <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '16px 16px' }}></div>
+                    
+                    {/* Inner Content (Services Overview) */}
+                    <div className="z-10 flex flex-col items-center justify-center">
+                      <div className="w-12 h-12 bg-dark rounded-full flex items-center justify-center mb-4 shadow-lg">
+                        <span className="text-brand text-xl">💡</span>
+                      </div>
+                      <div className="inline-block px-4 py-1.5 mb-4 border border-brand/40 bg-brand/10 rounded-full text-[10px] font-black uppercase tracking-[0.2em] text-dark">
+                        My Services
+                      </div>
+                      <h3 className="font-display font-black text-2xl uppercase leading-tight text-dark mb-3">
+                        Digital <br/> Experiences
+                      </h3>
+                      <p className="text-xs text-dark/70 font-semibold leading-relaxed max-w-[200px]">
+                        I build fast, scalable, and visually stunning web applications tailored for your business needs.
+                      </p>
+                    </div>
+                  </motion.div>
+
+                  {/* Floating UI Card 1: Animated Stats/Dashboard (Top Right) */}
+                  <motion.div
+                    animate={{ y: [-15, 15, -15], x: [-5, 5, -5] }}
+                    transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 0.2 }}
+                    className="absolute top-[8%] right-[2%] w-[160px] h-[110px] bg-dark rounded-[24px] shadow-2xl p-4 flex flex-col justify-between border border-white/10 z-30"
+                    style={{ translateZ: "50px" }}
+                  >
+                    <div className="flex gap-2 mb-2">
+                      <div className="w-2.5 h-2.5 rounded-full bg-brand"></div>
+                      <div className="w-2.5 h-2.5 rounded-full bg-white/20"></div>
+                      <div className="w-2.5 h-2.5 rounded-full bg-white/20"></div>
+                    </div>
+                    <div className="flex gap-1.5 items-end h-12">
+                      <motion.div animate={{ height: ["40%", "80%", "40%"] }} transition={{repeat: Infinity, duration: 2}} className="w-full bg-brand rounded-t-sm"></motion.div>
+                      <motion.div animate={{ height: ["70%", "30%", "70%"] }} transition={{repeat: Infinity, duration: 2.5}} className="w-full bg-white/20 rounded-t-sm"></motion.div>
+                      <motion.div animate={{ height: ["50%", "100%", "50%"] }} transition={{repeat: Infinity, duration: 1.8}} className="w-full bg-white/40 rounded-t-sm"></motion.div>
+                      <motion.div animate={{ height: ["90%", "40%", "90%"] }} transition={{repeat: Infinity, duration: 2.2}} className="w-full bg-brand/60 rounded-t-sm"></motion.div>
+                    </div>
+                  </motion.div>
+
+                  {/* Floating UI Card 2: Code Snippet Widget (Bottom Left) */}
+                  <motion.div
+                    animate={{ y: [15, -15, 15], x: [5, -5, 5] }}
+                    transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 0.5 }}
+                    className="absolute bottom-[10%] left-[2%] w-[210px] bg-white rounded-[24px] shadow-[0_20px_40px_rgba(0,0,0,0.1)] p-5 border border-black/5 z-30"
+                    style={{ translateZ: "70px" }}
+                  >
+                    <div className="flex items-center gap-3 mb-4 border-b border-black/5 pb-3">
+                       <div className="w-8 h-8 rounded-xl bg-brand/20 flex items-center justify-center text-sm shadow-inner">⚡</div>
+                       <span className="text-xs font-bold text-dark tracking-wide uppercase">App.tsx</span>
+                    </div>
+                    <div className="flex flex-col gap-2.5">
+                      <div className="w-full h-2 bg-dark/10 rounded-full"></div>
+                      <div className="w-4/5 h-2 bg-dark/10 rounded-full"></div>
+                      <div className="w-1/2 h-2 bg-brand rounded-full"></div>
+                      <div className="w-3/4 h-2 bg-dark/10 rounded-full"></div>
+                    </div>
+                  </motion.div>
+
+                  {/* NEW FLOATING WIDGET: Frontend Box */}
+                  <motion.div
+                    animate={{ y: [10, -10, 10], x: [-5, 5, -5] }}
+                    transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: 0.8 }}
+                    className="absolute bottom-[25%] -right-[5%] bg-white/95 backdrop-blur-xl px-5 py-3 rounded-[20px] shadow-2xl border border-black/5 flex items-center gap-4 z-40"
+                    style={{ translateZ: "90px" }}
+                  >
+                    <div className="w-10 h-10 rounded-full bg-[#E34F26]/10 flex items-center justify-center text-lg">🎨</div>
+                    <div className="flex flex-col">
+                      <span className="font-display font-black text-dark text-sm uppercase tracking-wider">Frontend</span>
+                      <span className="text-[10px] text-dark/60 font-bold uppercase tracking-widest mt-0.5">UI / UX Design</span>
+                    </div>
+                  </motion.div>
+
+                  {/* NEW FLOATING WIDGET: Backend Box */}
+                  <motion.div
+                    animate={{ y: [-12, 12, -12], x: [8, -8, 8] }}
+                    transition={{ repeat: Infinity, duration: 5.5, ease: "easeInOut", delay: 1.2 }}
+                    className="absolute top-[40%] -left-[10%] bg-dark/95 backdrop-blur-xl px-5 py-3 rounded-[20px] shadow-2xl border border-white/10 flex items-center gap-4 z-40"
+                    style={{ translateZ: "110px" }}
+                  >
+                    <div className="w-10 h-10 rounded-full bg-brand/20 flex items-center justify-center text-lg">⚙️</div>
+                    <div className="flex flex-col">
+                      <span className="font-display font-black text-white text-sm uppercase tracking-wider">Backend</span>
+                      <span className="text-[10px] text-white/60 font-bold uppercase tracking-widest mt-0.5">Database & APIs</span>
+                    </div>
+                  </motion.div>
+
+                  {/* Floating UI Card 3: 3D Abstract Icon (Top Left) */}
+                  <motion.div
+                     animate={{ y: [-10, 10, -10], rotate: [0, 10, 0] }}
+                     transition={{ repeat: Infinity, duration: 4, ease: "easeInOut", delay: 1 }}
+                     className="absolute top-[18%] left-[10%] w-[60px] h-[60px] bg-brand rounded-2xl shadow-[0_15px_30px_rgba(159,255,0,0.3)] flex items-center justify-center border-4 border-white z-20"
+                     style={{ translateZ: "100px" }}
+                  >
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                  </motion.div>
+
+                </TiltCard>
+              </div>
+
             </div>
 
             {/* Offerings Tags Part */}
@@ -273,12 +349,12 @@
                   What I Offer
                 </h3>
               </FadeIn>
-              <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+              <div className="flex flex-wrap justify-center gap-4 md:gap-6 max-w-6xl mx-auto">
                 {offerings.map((item, i) => (
                   <FadeIn key={i} delay={i * 0.1}>
                     <Magnet strength={0.2}>
                       <TiltCard>
-                        <div className="bg-base px-6 py-4 md:px-8 md:py-5 rounded-2xl border border-black/5 hover:border-brand/50 hover:bg-brand/10 transition-colors shadow-sm flex items-center justify-center text-center cursor-default h-full">
+                        <div className="bg-white/80 backdrop-blur-md px-6 py-4 md:px-8 md:py-5 rounded-2xl border border-black/5 hover:border-brand/50 hover:bg-brand/10 transition-colors shadow-sm flex items-center justify-center text-center cursor-default h-full">
                           <span className="font-display font-bold text-md md:text-lg text-dark">{item}</span>
                         </div>
                       </TiltCard>
@@ -290,7 +366,7 @@
 
             {/* Goal Banner Part */}
             <FadeIn delay={0.3}>
-              <TiltCard>
+              <TiltCard className="max-w-6xl mx-auto">
                 <div className="bg-dark rounded-[40px] p-10 md:p-16 text-center shadow-2xl relative overflow-hidden group">
                   <div className="absolute top-[-50%] left-[-10%] w-[400px] h-[400px] bg-brand/30 blur-[120px] rounded-full pointer-events-none group-hover:bg-brand/50 transition-colors duration-700"></div>
                   <h3 className="font-display font-black text-3xl md:text-5xl text-white mb-6 uppercase tracking-tight relative z-10">My Goal Is Simple</h3>
@@ -317,7 +393,7 @@
       ];
 
       return (
-        <section id="projects" className="bg-base py-32 px-5 lg:px-10 relative z-20">
+        <section id="projects" className="bg-surface py-32 px-5 lg:px-10 relative z-20 rounded-t-[40px] border-t border-black/5">
           <FadeIn>
             <h2 className="font-display font-black uppercase text-center mb-20 text-black" style={{ fontSize: 'clamp(3rem, 8vw, 100px)' }}>Projects</h2>
           </FadeIn>
@@ -357,22 +433,21 @@
        FOOTER SECTION
        ================================================================= */
     const FooterSection = () => (
-      <footer className="bg-surface py-20 px-8 lg:px-20 border-t border-black/10 rounded-t-[40px] relative z-30">
+      <footer className="bg-dark text-white py-20 px-8 lg:px-20 relative z-30">
         <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
           <FadeIn>
-            <h3 className="font-display font-black text-4xl md:text-5xl mb-8 text-black uppercase">Contact Me</h3>
+            <h3 className="font-display font-black text-4xl md:text-5xl mb-8 uppercase">Contact Me</h3>
           </FadeIn>
           <FadeIn delay={0.1}>
-            <div className="flex flex-col md:flex-row gap-6 md:gap-12 text-lg md:text-xl font-bold text-black mb-12">
+            <div className="flex flex-col md:flex-row gap-6 md:gap-12 text-lg md:text-xl font-bold mb-12">
               <a href="tel:+918360187994" className="hover:text-brand transition-colors">+91 83601 87994</a>
               <a href="tel:+918899626298" className="hover:text-brand transition-colors">+91 88996 26298</a>
               <a href="mailto:digigenie13@gmail.com" className="hover:text-brand transition-colors">digigenie13@gmail.com</a>
             </div>
           </FadeIn>
           <FadeIn delay={0.2}>
-            <p className="text-sm text-black/60 font-semibold uppercase tracking-widest border-t border-black/10 pt-8 w-full max-w-md mx-auto">
-              Designed by Gursimar Singh
-            </p>
+            <p className="text-sm text-white/40 font-semibold uppercase tracking-widest border-t border-white/10 pt-8 w-full max-w-md mx-auto">
+              Designed by Gursimar </p>
           </FadeIn>
         </div>
       </footer>
@@ -477,12 +552,17 @@
       }
 
       return (
-        <div className="font-sans">
-          <HeroSection onContactClick={() => setShowContactPage(true)} />
-          <ModernAboutSection />
-          <ProjectsSection />
-          <FooterSection />
-          <ChatBox />
+        <div className="font-sans bg-base min-h-screen relative overflow-hidden">
+          {/* Subtle Green Glow Background */}
+          <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[600px] bg-gradient-to-br from-[#d4fba6] via-[#e7fcbd]/40 to-transparent pointer-events-none -z-0 blur-3xl opacity-80"></div>
+          
+          <div className="relative z-10">
+            <Navbar onContactClick={() => setShowContactPage(true)} />
+            <ModernAboutSection />
+            <ProjectsSection />
+            <FooterSection />
+            <ChatBox />
+          </div>
         </div>
       );
     };
